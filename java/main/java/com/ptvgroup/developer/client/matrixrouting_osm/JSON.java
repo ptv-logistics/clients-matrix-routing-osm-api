@@ -11,11 +11,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.ext.ContextResolver;
 
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-09-18T09:45:27.765912Z[Etc/UTC]")
-public class JSON implements ContextResolver<ObjectMapper> {
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-01-12T10:06:12.441529Z[Etc/UTC]")
+public class JSON {
   private ObjectMapper mapper;
 
   public JSON() {
@@ -35,15 +33,11 @@ public class JSON implements ContextResolver<ObjectMapper> {
 
   /**
    * Set the date format for JSON (de)serialization with Date properties.
+   *
    * @param dateFormat Date format
    */
   public void setDateFormat(DateFormat dateFormat) {
     mapper.setDateFormat(dateFormat);
-  }
-
-  @Override
-  public ObjectMapper getContext(Class<?> type) {
-    return mapper;
   }
 
   /**
@@ -59,6 +53,8 @@ public class JSON implements ContextResolver<ObjectMapper> {
    *
    * @param node The input data.
    * @param modelClass The class that contains the discriminator mappings.
+   *
+   * @return the target model class.
    */
   public static Class<?> getClassForElement(JsonNode node, Class<?> modelClass) {
     ClassDiscriminatorMapping cdm = modelDiscriminators.get(modelClass);
@@ -118,6 +114,8 @@ public class JSON implements ContextResolver<ObjectMapper> {
      *
      * @param node The input data.
      * @param visitedClasses The set of classes that have already been visited.
+     *
+     * @return the target model class.
      */
     Class<?> getClassForElement(JsonNode node, Set<Class<?>> visitedClasses) {
       if (visitedClasses.contains(modelClass)) {
@@ -164,6 +162,9 @@ public class JSON implements ContextResolver<ObjectMapper> {
    *
    * @param modelClass A OpenAPI model class.
    * @param inst The instance object.
+   * @param visitedClasses The set of classes that have already been visited.
+   *
+   * @return true if inst is an instance of modelClass in the OpenAPI model hierarchy.
    */
   public static boolean isInstanceOf(Class<?> modelClass, Object inst, Set<Class<?>> visitedClasses) {
     if (modelClass.isInstance(inst)) {
@@ -178,10 +179,10 @@ public class JSON implements ContextResolver<ObjectMapper> {
     visitedClasses.add(modelClass);
 
     // Traverse the oneOf/anyOf composed schemas.
-    Map<String, GenericType> descendants = modelDescendants.get(modelClass);
+    Map<String, Class<?>> descendants = modelDescendants.get(modelClass);
     if (descendants != null) {
-      for (GenericType childType : descendants.values()) {
-        if (isInstanceOf(childType.getRawType(), inst, visitedClasses)) {
+      for (Class<?> childType : descendants.values()) {
+        if (isInstanceOf(childType, inst, visitedClasses)) {
           return true;
         }
       }
@@ -192,12 +193,12 @@ public class JSON implements ContextResolver<ObjectMapper> {
   /**
    * A map of discriminators for all model classes.
    */
-  private static Map<Class<?>, ClassDiscriminatorMapping> modelDiscriminators = new HashMap<Class<?>, ClassDiscriminatorMapping>();
+  private static Map<Class<?>, ClassDiscriminatorMapping> modelDiscriminators = new HashMap<>();
 
   /**
    * A map of oneOf/anyOf descendants for each model class.
    */
-  private static Map<Class<?>, Map<String, GenericType>> modelDescendants = new HashMap<Class<?>, Map<String, GenericType>>();
+  private static Map<Class<?>, Map<String, Class<?>>> modelDescendants = new HashMap<>();
 
   /**
     * Register a model class discriminator.
@@ -217,7 +218,7 @@ public class JSON implements ContextResolver<ObjectMapper> {
     * @param modelClass the model class
     * @param descendants a map of oneOf/anyOf descendants.
     */
-  public static void registerDescendants(Class<?> modelClass, Map<String, GenericType> descendants) {
+  public static void registerDescendants(Class<?> modelClass, Map<String, Class<?>> descendants) {
     modelDescendants.put(modelClass, descendants);
   }
 

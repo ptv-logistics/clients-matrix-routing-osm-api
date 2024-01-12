@@ -1,4 +1,4 @@
-# Clients for the Matrix Routing OSM API (Version 1.2)
+# Clients for the Matrix Routing OSM API (Version 1.3)
 
 Using client classes makes it easier and more convenient to integrate the API into an existing programming environment. We provide here clients for Java, C# and TypeScript. Alternatively you can generate the clients yourself by using this [tutorial](https://developer.myptv.com/en/resources/tutorials/general/how-generate-clients-ptv-developer-apis).
 
@@ -64,14 +64,15 @@ Language depending information:
    ```
 
 
-* **TypeScript:** Please add the following dependecies to your project
+* **TypeScript:** Please add the following dependencies to your project
+  * nodeVersion (18.14.0)
   * aurelia-api (3.2.1)
   * aurelia-fetch-client (1.8.2)
-  * node-fetch (2.6.1)
+  * node-fetch (2.6.2)
   * polly-js (1.8.0)
-  * typescript (4.1.2)
-  * @types/node (18.11.18)
-  * typescript-http-client (0.10.1)
+  * typescript (4.9.5)
+  * typescript-http-client (0.10.4)
+  * @types/node-fetch (2.6.2)
   
   
   To initialize your client with your APIKey you can use the following snippet:
