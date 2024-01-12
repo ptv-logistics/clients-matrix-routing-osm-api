@@ -1,3 +1,5 @@
+/* tslint:disable */
+/* eslint-disable */
 export * from './CalculationStatus';
 export * from './CausingError';
 export * from './ErrorResponse';
