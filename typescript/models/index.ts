@@ -7,6 +7,7 @@ export * from './Location';
 export * from './Locations';
 export * from './MatrixIdentifier';
 export * from './MatrixResponse';
+export * from './Options';
 export * from './Results';
 export * from './RoadAccess';
 export * from './StatusResponse';
