@@ -42,27 +42,32 @@ import com.ptvgroup.developer.client.matrixrouting.osm.ApiClient;
   MatrixResponse.JSON_PROPERTY_DIRECT_DISTANCE_FLAGS,
   MatrixResponse.JSON_PROPERTY_WARNINGS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-05-06T09:43:01.744404947Z[Etc/UTC]", comments = "Generator version: 7.8.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-23T08:21:21.505582183Z[Etc/UTC]", comments = "Generator version: 7.22.0")
 public class MatrixResponse {
   public static final String JSON_PROPERTY_PERCENTAGE_OF_DIRECT_DISTANCE_RELATIONS = "percentageOfDirectDistanceRelations";
+  @javax.annotation.Nullable
   private Double percentageOfDirectDistanceRelations;
 
   public static final String JSON_PROPERTY_DISTANCES = "distances";
-  private List<Integer> distances = new ArrayList<>();
+  @javax.annotation.Nullable
+  private List<Integer> distances;
 
   public static final String JSON_PROPERTY_TRAVEL_TIMES = "travelTimes";
-  private List<Integer> travelTimes = new ArrayList<>();
+  @javax.annotation.Nullable
+  private List<Integer> travelTimes;
 
   public static final String JSON_PROPERTY_DIRECT_DISTANCE_FLAGS = "directDistanceFlags";
-  private List<Boolean> directDistanceFlags = new ArrayList<>();
+  @javax.annotation.Nullable
+  private List<Boolean> directDistanceFlags;
 
   public static final String JSON_PROPERTY_WARNINGS = "warnings";
-  private List<Warning> warnings = new ArrayList<>();
+  @javax.annotation.Nullable
+  private List<Warning> warnings;
 
   public MatrixResponse() { 
   }
 
-  public MatrixResponse percentageOfDirectDistanceRelations(Double percentageOfDirectDistanceRelations) {
+  public MatrixResponse percentageOfDirectDistanceRelations(@javax.annotation.Nullable Double percentageOfDirectDistanceRelations) {
     this.percentageOfDirectDistanceRelations = percentageOfDirectDistanceRelations;
     return this;
   }
@@ -74,21 +79,21 @@ public class MatrixResponse {
    * @return percentageOfDirectDistanceRelations
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PERCENTAGE_OF_DIRECT_DISTANCE_RELATIONS)
+  @JsonProperty(value = JSON_PROPERTY_PERCENTAGE_OF_DIRECT_DISTANCE_RELATIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Double getPercentageOfDirectDistanceRelations() {
     return percentageOfDirectDistanceRelations;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PERCENTAGE_OF_DIRECT_DISTANCE_RELATIONS)
+  @JsonProperty(value = JSON_PROPERTY_PERCENTAGE_OF_DIRECT_DISTANCE_RELATIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPercentageOfDirectDistanceRelations(Double percentageOfDirectDistanceRelations) {
+  public void setPercentageOfDirectDistanceRelations(@javax.annotation.Nullable Double percentageOfDirectDistanceRelations) {
     this.percentageOfDirectDistanceRelations = percentageOfDirectDistanceRelations;
   }
 
 
-  public MatrixResponse distances(List<Integer> distances) {
+  public MatrixResponse distances(@javax.annotation.Nullable List<Integer> distances) {
     this.distances = distances;
     return this;
   }
@@ -106,21 +111,21 @@ public class MatrixResponse {
    * @return distances
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DISTANCES)
+  @JsonProperty(value = JSON_PROPERTY_DISTANCES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<Integer> getDistances() {
     return distances;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DISTANCES)
+  @JsonProperty(value = JSON_PROPERTY_DISTANCES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDistances(List<Integer> distances) {
+  public void setDistances(@javax.annotation.Nullable List<Integer> distances) {
     this.distances = distances;
   }
 
 
-  public MatrixResponse travelTimes(List<Integer> travelTimes) {
+  public MatrixResponse travelTimes(@javax.annotation.Nullable List<Integer> travelTimes) {
     this.travelTimes = travelTimes;
     return this;
   }
@@ -138,21 +143,21 @@ public class MatrixResponse {
    * @return travelTimes
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TRAVEL_TIMES)
+  @JsonProperty(value = JSON_PROPERTY_TRAVEL_TIMES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<Integer> getTravelTimes() {
     return travelTimes;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_TRAVEL_TIMES)
+  @JsonProperty(value = JSON_PROPERTY_TRAVEL_TIMES, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTravelTimes(List<Integer> travelTimes) {
+  public void setTravelTimes(@javax.annotation.Nullable List<Integer> travelTimes) {
     this.travelTimes = travelTimes;
   }
 
 
-  public MatrixResponse directDistanceFlags(List<Boolean> directDistanceFlags) {
+  public MatrixResponse directDistanceFlags(@javax.annotation.Nullable List<Boolean> directDistanceFlags) {
     this.directDistanceFlags = directDistanceFlags;
     return this;
   }
@@ -170,21 +175,21 @@ public class MatrixResponse {
    * @return directDistanceFlags
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DIRECT_DISTANCE_FLAGS)
+  @JsonProperty(value = JSON_PROPERTY_DIRECT_DISTANCE_FLAGS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<Boolean> getDirectDistanceFlags() {
     return directDistanceFlags;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DIRECT_DISTANCE_FLAGS)
+  @JsonProperty(value = JSON_PROPERTY_DIRECT_DISTANCE_FLAGS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDirectDistanceFlags(List<Boolean> directDistanceFlags) {
+  public void setDirectDistanceFlags(@javax.annotation.Nullable List<Boolean> directDistanceFlags) {
     this.directDistanceFlags = directDistanceFlags;
   }
 
 
-  public MatrixResponse warnings(List<Warning> warnings) {
+  public MatrixResponse warnings(@javax.annotation.Nullable List<Warning> warnings) {
     this.warnings = warnings;
     return this;
   }
@@ -202,16 +207,16 @@ public class MatrixResponse {
    * @return warnings
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_WARNINGS)
+  @JsonProperty(value = JSON_PROPERTY_WARNINGS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<Warning> getWarnings() {
     return warnings;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_WARNINGS)
+  @JsonProperty(value = JSON_PROPERTY_WARNINGS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setWarnings(List<Warning> warnings) {
+  public void setWarnings(@javax.annotation.Nullable List<Warning> warnings) {
     this.warnings = warnings;
   }
 
@@ -258,10 +263,7 @@ public class MatrixResponse {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 
   /**
@@ -298,33 +300,33 @@ public class MatrixResponse {
 
     // add `percentageOfDirectDistanceRelations` to the URL query string
     if (getPercentageOfDirectDistanceRelations() != null) {
-      joiner.add(String.format("%spercentageOfDirectDistanceRelations%s=%s", prefix, suffix, URLEncoder.encode(ApiClient.valueToString(getPercentageOfDirectDistanceRelations()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      joiner.add(String.format(java.util.Locale.ROOT, "%spercentageOfDirectDistanceRelations%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getPercentageOfDirectDistanceRelations()))));
     }
 
     // add `distances` to the URL query string
     if (getDistances() != null) {
       for (int i = 0; i < getDistances().size(); i++) {
-        joiner.add(String.format("%sdistances%s%s=%s", prefix, suffix,
-            "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
-            URLEncoder.encode(ApiClient.valueToString(getDistances().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+        joiner.add(String.format(java.util.Locale.ROOT, "%sdistances%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+            ApiClient.urlEncode(ApiClient.valueToString(getDistances().get(i)))));
       }
     }
 
     // add `travelTimes` to the URL query string
     if (getTravelTimes() != null) {
       for (int i = 0; i < getTravelTimes().size(); i++) {
-        joiner.add(String.format("%stravelTimes%s%s=%s", prefix, suffix,
-            "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
-            URLEncoder.encode(ApiClient.valueToString(getTravelTimes().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+        joiner.add(String.format(java.util.Locale.ROOT, "%stravelTimes%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+            ApiClient.urlEncode(ApiClient.valueToString(getTravelTimes().get(i)))));
       }
     }
 
     // add `directDistanceFlags` to the URL query string
     if (getDirectDistanceFlags() != null) {
       for (int i = 0; i < getDirectDistanceFlags().size(); i++) {
-        joiner.add(String.format("%sdirectDistanceFlags%s%s=%s", prefix, suffix,
-            "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
-            URLEncoder.encode(ApiClient.valueToString(getDirectDistanceFlags().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+        joiner.add(String.format(java.util.Locale.ROOT, "%sdirectDistanceFlags%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix),
+            ApiClient.urlEncode(ApiClient.valueToString(getDirectDistanceFlags().get(i)))));
       }
     }
 
@@ -332,8 +334,8 @@ public class MatrixResponse {
     if (getWarnings() != null) {
       for (int i = 0; i < getWarnings().size(); i++) {
         if (getWarnings().get(i) != null) {
-          joiner.add(getWarnings().get(i).toUrlQueryString(String.format("%swarnings%s%s", prefix, suffix,
-          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+          joiner.add(getWarnings().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%swarnings%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
         }
       }
     }

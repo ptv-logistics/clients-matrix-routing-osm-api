@@ -39,24 +39,28 @@ import com.ptvgroup.developer.client.matrixrouting.osm.ApiClient;
   Location.JSON_PROPERTY_ROAD_ACCESS,
   Location.JSON_PROPERTY_INCLUDE_LAST_METERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-05-06T09:43:01.744404947Z[Etc/UTC]", comments = "Generator version: 7.8.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-23T08:21:21.505582183Z[Etc/UTC]", comments = "Generator version: 7.22.0")
 public class Location {
   public static final String JSON_PROPERTY_LATITUDE = "latitude";
+  @javax.annotation.Nonnull
   private Double latitude;
 
   public static final String JSON_PROPERTY_LONGITUDE = "longitude";
+  @javax.annotation.Nonnull
   private Double longitude;
 
   public static final String JSON_PROPERTY_ROAD_ACCESS = "roadAccess";
+  @javax.annotation.Nullable
   private RoadAccess roadAccess;
 
   public static final String JSON_PROPERTY_INCLUDE_LAST_METERS = "includeLastMeters";
+  @javax.annotation.Nullable
   private Boolean includeLastMeters = false;
 
   public Location() { 
   }
 
-  public Location latitude(Double latitude) {
+  public Location latitude(@javax.annotation.Nonnull Double latitude) {
     this.latitude = latitude;
     return this;
   }
@@ -68,21 +72,21 @@ public class Location {
    * @return latitude
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LATITUDE)
+  @JsonProperty(value = JSON_PROPERTY_LATITUDE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Double getLatitude() {
     return latitude;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LATITUDE)
+  @JsonProperty(value = JSON_PROPERTY_LATITUDE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLatitude(Double latitude) {
+  public void setLatitude(@javax.annotation.Nonnull Double latitude) {
     this.latitude = latitude;
   }
 
 
-  public Location longitude(Double longitude) {
+  public Location longitude(@javax.annotation.Nonnull Double longitude) {
     this.longitude = longitude;
     return this;
   }
@@ -94,21 +98,21 @@ public class Location {
    * @return longitude
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LONGITUDE)
+  @JsonProperty(value = JSON_PROPERTY_LONGITUDE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public Double getLongitude() {
     return longitude;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LONGITUDE)
+  @JsonProperty(value = JSON_PROPERTY_LONGITUDE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLongitude(Double longitude) {
+  public void setLongitude(@javax.annotation.Nonnull Double longitude) {
     this.longitude = longitude;
   }
 
 
-  public Location roadAccess(RoadAccess roadAccess) {
+  public Location roadAccess(@javax.annotation.Nullable RoadAccess roadAccess) {
     this.roadAccess = roadAccess;
     return this;
   }
@@ -118,21 +122,21 @@ public class Location {
    * @return roadAccess
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ROAD_ACCESS)
+  @JsonProperty(value = JSON_PROPERTY_ROAD_ACCESS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public RoadAccess getRoadAccess() {
     return roadAccess;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ROAD_ACCESS)
+  @JsonProperty(value = JSON_PROPERTY_ROAD_ACCESS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRoadAccess(RoadAccess roadAccess) {
+  public void setRoadAccess(@javax.annotation.Nullable RoadAccess roadAccess) {
     this.roadAccess = roadAccess;
   }
 
 
-  public Location includeLastMeters(Boolean includeLastMeters) {
+  public Location includeLastMeters(@javax.annotation.Nullable Boolean includeLastMeters) {
     this.includeLastMeters = includeLastMeters;
     return this;
   }
@@ -142,16 +146,16 @@ public class Location {
    * @return includeLastMeters
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_INCLUDE_LAST_METERS)
+  @JsonProperty(value = JSON_PROPERTY_INCLUDE_LAST_METERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Boolean getIncludeLastMeters() {
     return includeLastMeters;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_INCLUDE_LAST_METERS)
+  @JsonProperty(value = JSON_PROPERTY_INCLUDE_LAST_METERS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIncludeLastMeters(Boolean includeLastMeters) {
+  public void setIncludeLastMeters(@javax.annotation.Nullable Boolean includeLastMeters) {
     this.includeLastMeters = includeLastMeters;
   }
 
@@ -196,10 +200,7 @@ public class Location {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 
   /**
@@ -236,12 +237,12 @@ public class Location {
 
     // add `latitude` to the URL query string
     if (getLatitude() != null) {
-      joiner.add(String.format("%slatitude%s=%s", prefix, suffix, URLEncoder.encode(ApiClient.valueToString(getLatitude()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      joiner.add(String.format(java.util.Locale.ROOT, "%slatitude%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getLatitude()))));
     }
 
     // add `longitude` to the URL query string
     if (getLongitude() != null) {
-      joiner.add(String.format("%slongitude%s=%s", prefix, suffix, URLEncoder.encode(ApiClient.valueToString(getLongitude()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      joiner.add(String.format(java.util.Locale.ROOT, "%slongitude%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getLongitude()))));
     }
 
     // add `roadAccess` to the URL query string
@@ -251,7 +252,7 @@ public class Location {
 
     // add `includeLastMeters` to the URL query string
     if (getIncludeLastMeters() != null) {
-      joiner.add(String.format("%sincludeLastMeters%s=%s", prefix, suffix, URLEncoder.encode(ApiClient.valueToString(getIncludeLastMeters()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      joiner.add(String.format(java.util.Locale.ROOT, "%sincludeLastMeters%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getIncludeLastMeters()))));
     }
 
     return joiner.toString();

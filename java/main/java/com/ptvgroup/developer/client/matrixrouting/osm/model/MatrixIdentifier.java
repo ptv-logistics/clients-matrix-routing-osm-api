@@ -36,15 +36,16 @@ import com.ptvgroup.developer.client.matrixrouting.osm.ApiClient;
 @JsonPropertyOrder({
   MatrixIdentifier.JSON_PROPERTY_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-05-06T09:43:01.744404947Z[Etc/UTC]", comments = "Generator version: 7.8.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-23T08:21:21.505582183Z[Etc/UTC]", comments = "Generator version: 7.22.0")
 public class MatrixIdentifier {
   public static final String JSON_PROPERTY_ID = "id";
+  @javax.annotation.Nonnull
   private UUID id;
 
   public MatrixIdentifier() { 
   }
 
-  public MatrixIdentifier id(UUID id) {
+  public MatrixIdentifier id(@javax.annotation.Nonnull UUID id) {
     this.id = id;
     return this;
   }
@@ -54,16 +55,16 @@ public class MatrixIdentifier {
    * @return id
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public UUID getId() {
     return id;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonProperty(value = JSON_PROPERTY_ID, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(UUID id) {
+  public void setId(@javax.annotation.Nonnull UUID id) {
     this.id = id;
   }
 
@@ -102,10 +103,7 @@ public class MatrixIdentifier {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 
   /**
@@ -142,7 +140,7 @@ public class MatrixIdentifier {
 
     // add `id` to the URL query string
     if (getId() != null) {
-      joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(ApiClient.valueToString(getId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      joiner.add(String.format(java.util.Locale.ROOT, "%sid%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
     }
 
     return joiner.toString();

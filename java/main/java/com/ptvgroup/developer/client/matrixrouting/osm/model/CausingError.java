@@ -40,24 +40,28 @@ import com.ptvgroup.developer.client.matrixrouting.osm.ApiClient;
   CausingError.JSON_PROPERTY_PARAMETER,
   CausingError.JSON_PROPERTY_DETAILS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-05-06T09:43:01.744404947Z[Etc/UTC]", comments = "Generator version: 7.8.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-23T08:21:21.505582183Z[Etc/UTC]", comments = "Generator version: 7.22.0")
 public class CausingError {
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @javax.annotation.Nonnull
   private String description;
 
   public static final String JSON_PROPERTY_ERROR_CODE = "errorCode";
+  @javax.annotation.Nonnull
   private String errorCode;
 
   public static final String JSON_PROPERTY_PARAMETER = "parameter";
+  @javax.annotation.Nullable
   private String parameter;
 
   public static final String JSON_PROPERTY_DETAILS = "details";
-  private Map<String, Object> details = new HashMap<>();
+  @javax.annotation.Nullable
+  private Map<String, Object> details;
 
   public CausingError() { 
   }
 
-  public CausingError description(String description) {
+  public CausingError description(@javax.annotation.Nonnull String description) {
     this.description = description;
     return this;
   }
@@ -67,21 +71,21 @@ public class CausingError {
    * @return description
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getDescription() {
     return description;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDescription(String description) {
+  public void setDescription(@javax.annotation.Nonnull String description) {
     this.description = description;
   }
 
 
-  public CausingError errorCode(String errorCode) {
+  public CausingError errorCode(@javax.annotation.Nonnull String errorCode) {
     this.errorCode = errorCode;
     return this;
   }
@@ -91,21 +95,21 @@ public class CausingError {
    * @return errorCode
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ERROR_CODE)
+  @JsonProperty(value = JSON_PROPERTY_ERROR_CODE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public String getErrorCode() {
     return errorCode;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ERROR_CODE)
+  @JsonProperty(value = JSON_PROPERTY_ERROR_CODE, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setErrorCode(String errorCode) {
+  public void setErrorCode(@javax.annotation.Nonnull String errorCode) {
     this.errorCode = errorCode;
   }
 
 
-  public CausingError parameter(String parameter) {
+  public CausingError parameter(@javax.annotation.Nullable String parameter) {
     this.parameter = parameter;
     return this;
   }
@@ -115,21 +119,21 @@ public class CausingError {
    * @return parameter
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PARAMETER)
+  @JsonProperty(value = JSON_PROPERTY_PARAMETER, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public String getParameter() {
     return parameter;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_PARAMETER)
+  @JsonProperty(value = JSON_PROPERTY_PARAMETER, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setParameter(String parameter) {
+  public void setParameter(@javax.annotation.Nullable String parameter) {
     this.parameter = parameter;
   }
 
 
-  public CausingError details(Map<String, Object> details) {
+  public CausingError details(@javax.annotation.Nullable Map<String, Object> details) {
     this.details = details;
     return this;
   }
@@ -147,16 +151,16 @@ public class CausingError {
    * @return details
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DETAILS)
+  @JsonProperty(value = JSON_PROPERTY_DETAILS, required = false)
   @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
   public Map<String, Object> getDetails() {
     return details;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DETAILS)
+  @JsonProperty(value = JSON_PROPERTY_DETAILS, required = false)
   @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDetails(Map<String, Object> details) {
+  public void setDetails(@javax.annotation.Nullable Map<String, Object> details) {
     this.details = details;
   }
 
@@ -201,10 +205,7 @@ public class CausingError {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 
   /**
@@ -241,25 +242,25 @@ public class CausingError {
 
     // add `description` to the URL query string
     if (getDescription() != null) {
-      joiner.add(String.format("%sdescription%s=%s", prefix, suffix, URLEncoder.encode(ApiClient.valueToString(getDescription()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      joiner.add(String.format(java.util.Locale.ROOT, "%sdescription%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getDescription()))));
     }
 
     // add `errorCode` to the URL query string
     if (getErrorCode() != null) {
-      joiner.add(String.format("%serrorCode%s=%s", prefix, suffix, URLEncoder.encode(ApiClient.valueToString(getErrorCode()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      joiner.add(String.format(java.util.Locale.ROOT, "%serrorCode%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getErrorCode()))));
     }
 
     // add `parameter` to the URL query string
     if (getParameter() != null) {
-      joiner.add(String.format("%sparameter%s=%s", prefix, suffix, URLEncoder.encode(ApiClient.valueToString(getParameter()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      joiner.add(String.format(java.util.Locale.ROOT, "%sparameter%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getParameter()))));
     }
 
     // add `details` to the URL query string
     if (getDetails() != null) {
       for (String _key : getDetails().keySet()) {
-        joiner.add(String.format("%sdetails%s%s=%s", prefix, suffix,
-            "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
-            getDetails().get(_key), URLEncoder.encode(ApiClient.valueToString(getDetails().get(_key)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+        joiner.add(String.format(java.util.Locale.ROOT, "%sdetails%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, _key, containerSuffix),
+            getDetails().get(_key), ApiClient.urlEncode(ApiClient.valueToString(getDetails().get(_key)))));
       }
     }
 

@@ -39,18 +39,20 @@ import com.ptvgroup.developer.client.matrixrouting.osm.ApiClient;
   Locations.JSON_PROPERTY_ORIGINS,
   Locations.JSON_PROPERTY_DESTINATIONS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-05-06T09:43:01.744404947Z[Etc/UTC]", comments = "Generator version: 7.8.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-23T08:21:21.505582183Z[Etc/UTC]", comments = "Generator version: 7.22.0")
 public class Locations {
   public static final String JSON_PROPERTY_ORIGINS = "origins";
-  private List<Location> origins = new ArrayList<>();
+  @javax.annotation.Nonnull
+  private List<Location> origins;
 
   public static final String JSON_PROPERTY_DESTINATIONS = "destinations";
-  private List<Location> destinations = new ArrayList<>();
+  @javax.annotation.Nullable
+  private List<Location> destinations;
 
   public Locations() { 
   }
 
-  public Locations origins(List<Location> origins) {
+  public Locations origins(@javax.annotation.Nonnull List<Location> origins) {
     this.origins = origins;
     return this;
   }
@@ -68,21 +70,21 @@ public class Locations {
    * @return origins
    */
   @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ORIGINS)
+  @JsonProperty(value = JSON_PROPERTY_ORIGINS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   public List<Location> getOrigins() {
     return origins;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ORIGINS)
+  @JsonProperty(value = JSON_PROPERTY_ORIGINS, required = true)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setOrigins(List<Location> origins) {
+  public void setOrigins(@javax.annotation.Nonnull List<Location> origins) {
     this.origins = origins;
   }
 
 
-  public Locations destinations(List<Location> destinations) {
+  public Locations destinations(@javax.annotation.Nullable List<Location> destinations) {
     this.destinations = destinations;
     return this;
   }
@@ -100,16 +102,16 @@ public class Locations {
    * @return destinations
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESTINATIONS)
+  @JsonProperty(value = JSON_PROPERTY_DESTINATIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public List<Location> getDestinations() {
     return destinations;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DESTINATIONS)
+  @JsonProperty(value = JSON_PROPERTY_DESTINATIONS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDestinations(List<Location> destinations) {
+  public void setDestinations(@javax.annotation.Nullable List<Location> destinations) {
     this.destinations = destinations;
   }
 
@@ -150,10 +152,7 @@ public class Locations {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 
   /**
@@ -192,8 +191,8 @@ public class Locations {
     if (getOrigins() != null) {
       for (int i = 0; i < getOrigins().size(); i++) {
         if (getOrigins().get(i) != null) {
-          joiner.add(getOrigins().get(i).toUrlQueryString(String.format("%sorigins%s%s", prefix, suffix,
-          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+          joiner.add(getOrigins().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%sorigins%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
         }
       }
     }
@@ -202,8 +201,8 @@ public class Locations {
     if (getDestinations() != null) {
       for (int i = 0; i < getDestinations().size(); i++) {
         if (getDestinations().get(i) != null) {
-          joiner.add(getDestinations().get(i).toUrlQueryString(String.format("%sdestinations%s%s", prefix, suffix,
-          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+          joiner.add(getDestinations().get(i).toUrlQueryString(String.format(java.util.Locale.ROOT, "%sdestinations%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format(java.util.Locale.ROOT, "%s%d%s", containerPrefix, i, containerSuffix))));
         }
       }
     }

@@ -15,6 +15,7 @@ package com.ptvgroup.developer.client.matrixrouting.osm.api;
 import com.ptvgroup.developer.client.matrixrouting.osm.ApiClient;
 import com.ptvgroup.developer.client.matrixrouting.osm.ApiException;
 import com.ptvgroup.developer.client.matrixrouting.osm.ApiResponse;
+import com.ptvgroup.developer.client.matrixrouting.osm.Configuration;
 import com.ptvgroup.developer.client.matrixrouting.osm.Pair;
 
 import com.ptvgroup.developer.client.matrixrouting.osm.model.ErrorResponse;
@@ -51,18 +52,38 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-05-06T09:43:01.744404947Z[Etc/UTC]", comments = "Generator version: 7.8.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-23T08:21:21.505582183Z[Etc/UTC]", comments = "Generator version: 7.22.0")
 public class MatricesApi {
+  /**
+   * Utility class for extending HttpRequest.Builder functionality.
+   */
+  private static class HttpRequestBuilderExtensions {
+    /**
+     * Adds additional headers to the provided HttpRequest.Builder. Useful for adding method/endpoint specific headers.
+     *
+     * @param builder the HttpRequest.Builder to which headers will be added
+     * @param headers a map of header names and values to add; may be null
+     * @return the same HttpRequest.Builder instance with the additional headers set
+     */
+    static HttpRequest.Builder withAdditionalHeaders(HttpRequest.Builder builder, Map<String, String> headers) {
+        if (headers != null) {
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
+                builder.header(entry.getKey(), entry.getValue());
+            }
+        }
+        return builder;
+    }
+  }
   private final HttpClient memberVarHttpClient;
   private final ObjectMapper memberVarObjectMapper;
   private final String memberVarBaseUri;
   private final Consumer<HttpRequest.Builder> memberVarInterceptor;
   private final Duration memberVarReadTimeout;
   private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
-  private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
+  private final Consumer<HttpResponse<InputStream>> memberVarAsyncResponseInterceptor;
 
   public MatricesApi() {
-    this(new ApiClient());
+    this(Configuration.getDefaultApiClient());
   }
 
   public MatricesApi(ApiClient apiClient) {
@@ -75,8 +96,17 @@ public class MatricesApi {
     memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
   }
 
+
   protected ApiException getApiException(String operationId, HttpResponse<InputStream> response) throws IOException {
-    String body = response.body() == null ? null : new String(response.body().readAllBytes());
+    InputStream responseBody = ApiClient.getResponseBody(response);
+    String body = null;
+    try {
+      body = responseBody == null ? null : new String(responseBody.readAllBytes());
+    } finally {
+      if (responseBody != null) {
+        responseBody.close();
+      }
+    }
     String message = formatExceptionMessage(operationId, response.statusCode(), body);
     return new ApiException(response.statusCode(), message, response.headers(), body);
   }
@@ -89,6 +119,57 @@ public class MatricesApi {
   }
 
   /**
+   * Download file from the given response.
+   *
+   * @param response Response
+   * @return File
+   * @throws ApiException If fail to read file content from response and write to disk
+   */
+  public File downloadFileFromResponse(HttpResponse<InputStream> response, InputStream responseBody) throws ApiException {
+    if (responseBody == null) {
+      throw new ApiException(new IOException("Response body is empty"));
+    }
+    try {
+      File file = prepareDownloadFile(response);
+      java.nio.file.Files.copy(responseBody, file.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+      return file;
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+  }
+
+  /**
+   * <p>Prepare the file for download from the response.</p>
+   *
+   * @param response a {@link java.net.http.HttpResponse} object.
+   * @return a {@link java.io.File} object.
+   * @throws java.io.IOException if any.
+   */
+  private File prepareDownloadFile(HttpResponse<InputStream> response) throws IOException {
+    String filename = null;
+    java.util.Optional<String> contentDisposition = response.headers().firstValue("Content-Disposition");
+    if (contentDisposition.isPresent() && !"".equals(contentDisposition.get())) {
+      // Get filename from the Content-Disposition header.
+      java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("filename=['\"]?([^'\"\\s]+)['\"]?");
+      java.util.regex.Matcher matcher = pattern.matcher(contentDisposition.get());
+      if (matcher.find())
+        filename = matcher.group(1);
+    }
+    File file = null;
+    if (filename != null) {
+      java.nio.file.Path tempDir = java.nio.file.Files.createTempDirectory("swagger-gen-native");
+      java.nio.file.Path filePath = java.nio.file.Files.createFile(tempDir.resolve(filename));
+      file = filePath.toFile();
+      tempDir.toFile().deleteOnExit();   // best effort cleanup
+      file.deleteOnExit(); // best effort cleanup
+    } else {
+      file = java.nio.file.Files.createTempFile("download-", "").toFile();
+      file.deleteOnExit(); // best effort cleanup
+    }
+    return file;
+  }
+
+  /**
    * 
    * Creates a matrix by calculating distances and travel times between given origins and destinations.
    * @param locations  (required)
@@ -98,8 +179,23 @@ public class MatricesApi {
    * @return MatrixResponse
    * @throws ApiException if fails to make API call
    */
-  public MatrixResponse calculateMatrix(Locations locations, String profile, List<Results> results, Options options) throws ApiException {
-    ApiResponse<MatrixResponse> localVarResponse = calculateMatrixWithHttpInfo(locations, profile, results, options);
+  public MatrixResponse calculateMatrix(@javax.annotation.Nonnull Locations locations, @javax.annotation.Nullable String profile, @javax.annotation.Nullable List<Results> results, @javax.annotation.Nullable Options options) throws ApiException {
+    return calculateMatrix(locations, profile, results, options, null);
+  }
+
+  /**
+   * 
+   * Creates a matrix by calculating distances and travel times between given origins and destinations.
+   * @param locations  (required)
+   * @param profile A profile defines a vehicle by a set of attributes, matching typical transport situations. It must be the name of one of the [predefined profiles](../data-api/concepts/osm-profiles) such as _EUR_OSM_CAR_. (optional, default to EUR_OSM_CAR)
+   * @param results Comma-separated list that defines which results will be returned.  * &#x60;DISTANCES&#x60;     Response includes information about the distances between start and destination locations.  * &#x60;TRAVEL_TIMES&#x60;     Response includes information about the travel times between start and destination locations.  * &#x60;DIRECT_DISTANCE_FLAGS&#x60;     Response includes flags describing if relations have been estimated by direct distance. (optional)
+   * @param options Matrix Routing-relevant options like the average speed for direct distance calculations. Use array notation like &#x60;options[averageSpeed]&#x3D;60&#x60; to set options. (optional)
+   * @param headers Optional headers to include in the request
+   * @return MatrixResponse
+   * @throws ApiException if fails to make API call
+   */
+  public MatrixResponse calculateMatrix(@javax.annotation.Nonnull Locations locations, @javax.annotation.Nullable String profile, @javax.annotation.Nullable List<Results> results, @javax.annotation.Nullable Options options, Map<String, String> headers) throws ApiException {
+    ApiResponse<MatrixResponse> localVarResponse = calculateMatrixWithHttpInfo(locations, profile, results, options, headers);
     return localVarResponse.getData();
   }
 
@@ -113,8 +209,23 @@ public class MatricesApi {
    * @return ApiResponse&lt;MatrixResponse&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<MatrixResponse> calculateMatrixWithHttpInfo(Locations locations, String profile, List<Results> results, Options options) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = calculateMatrixRequestBuilder(locations, profile, results, options);
+  public ApiResponse<MatrixResponse> calculateMatrixWithHttpInfo(@javax.annotation.Nonnull Locations locations, @javax.annotation.Nullable String profile, @javax.annotation.Nullable List<Results> results, @javax.annotation.Nullable Options options) throws ApiException {
+    return calculateMatrixWithHttpInfo(locations, profile, results, options, null);
+  }
+
+  /**
+   * 
+   * Creates a matrix by calculating distances and travel times between given origins and destinations.
+   * @param locations  (required)
+   * @param profile A profile defines a vehicle by a set of attributes, matching typical transport situations. It must be the name of one of the [predefined profiles](../data-api/concepts/osm-profiles) such as _EUR_OSM_CAR_. (optional, default to EUR_OSM_CAR)
+   * @param results Comma-separated list that defines which results will be returned.  * &#x60;DISTANCES&#x60;     Response includes information about the distances between start and destination locations.  * &#x60;TRAVEL_TIMES&#x60;     Response includes information about the travel times between start and destination locations.  * &#x60;DIRECT_DISTANCE_FLAGS&#x60;     Response includes flags describing if relations have been estimated by direct distance. (optional)
+   * @param options Matrix Routing-relevant options like the average speed for direct distance calculations. Use array notation like &#x60;options[averageSpeed]&#x3D;60&#x60; to set options. (optional)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;MatrixResponse&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<MatrixResponse> calculateMatrixWithHttpInfo(@javax.annotation.Nonnull Locations locations, @javax.annotation.Nullable String profile, @javax.annotation.Nullable List<Results> results, @javax.annotation.Nullable Options options, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = calculateMatrixRequestBuilder(locations, profile, results, options, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -122,16 +233,35 @@ public class MatricesApi {
       if (memberVarResponseInterceptor != null) {
         memberVarResponseInterceptor.accept(localVarResponse);
       }
+      InputStream localVarResponseBody = null;
       try {
         if (localVarResponse.statusCode()/ 100 != 2) {
           throw getApiException("calculateMatrix", localVarResponse);
         }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<MatrixResponse>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        MatrixResponse responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<MatrixResponse>() {});
+        
+
         return new ApiResponse<MatrixResponse>(
-          localVarResponse.statusCode(),
-          localVarResponse.headers().map(),
-          localVarResponse.body() == null ? null : memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<MatrixResponse>() {}) // closes the InputStream
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
         );
       } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
       }
     } catch (IOException e) {
       throw new ApiException(e);
@@ -142,7 +272,7 @@ public class MatricesApi {
     }
   }
 
-  private HttpRequest.Builder calculateMatrixRequestBuilder(Locations locations, String profile, List<Results> results, Options options) throws ApiException {
+  private HttpRequest.Builder calculateMatrixRequestBuilder(@javax.annotation.Nonnull Locations locations, @javax.annotation.Nullable String profile, @javax.annotation.Nullable List<Results> results, @javax.annotation.Nullable Options options, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'locations' is set
     if (locations == null) {
       throw new ApiException(400, "Missing the required parameter 'locations' when calling calculateMatrix");
@@ -190,6 +320,8 @@ public class MatricesApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -202,8 +334,19 @@ public class MatricesApi {
    * @param id The ID of a matrix calculation operation. (required)
    * @throws ApiException if fails to make API call
    */
-  public void cancelMatrixCalculation(UUID id) throws ApiException {
-    cancelMatrixCalculationWithHttpInfo(id);
+  public void cancelMatrixCalculation(@javax.annotation.Nonnull UUID id) throws ApiException {
+    cancelMatrixCalculation(id, null);
+  }
+
+  /**
+   * 
+   * Cancels a matrix calculation and deletes the calculated results specified by its ID. Results already calculated cannot be requested by its ID, anymore.
+   * @param id The ID of a matrix calculation operation. (required)
+   * @param headers Optional headers to include in the request
+   * @throws ApiException if fails to make API call
+   */
+  public void cancelMatrixCalculation(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    cancelMatrixCalculationWithHttpInfo(id, headers);
   }
 
   /**
@@ -213,8 +356,20 @@ public class MatricesApi {
    * @return ApiResponse&lt;Void&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<Void> cancelMatrixCalculationWithHttpInfo(UUID id) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = cancelMatrixCalculationRequestBuilder(id);
+  public ApiResponse<Void> cancelMatrixCalculationWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
+    return cancelMatrixCalculationWithHttpInfo(id, null);
+  }
+
+  /**
+   * 
+   * Cancels a matrix calculation and deletes the calculated results specified by its ID. Results already calculated cannot be requested by its ID, anymore.
+   * @param id The ID of a matrix calculation operation. (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;Void&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<Void> cancelMatrixCalculationWithHttpInfo(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = cancelMatrixCalculationRequestBuilder(id, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -222,21 +377,24 @@ public class MatricesApi {
       if (memberVarResponseInterceptor != null) {
         memberVarResponseInterceptor.accept(localVarResponse);
       }
+      InputStream localVarResponseBody = null;
       try {
         if (localVarResponse.statusCode()/ 100 != 2) {
           throw getApiException("cancelMatrixCalculation", localVarResponse);
         }
-        return new ApiResponse<Void>(
-          localVarResponse.statusCode(),
-          localVarResponse.headers().map(),
-          null
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody != null) {
+          localVarResponseBody.readAllBytes();
+        }
+        return new ApiResponse<>(
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            null
         );
       } finally {
-        // Drain the InputStream
-        while (localVarResponse.body().read() != -1) {
-            // Ignore
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
         }
-        localVarResponse.body().close();
       }
     } catch (IOException e) {
       throw new ApiException(e);
@@ -247,7 +405,7 @@ public class MatricesApi {
     }
   }
 
-  private HttpRequest.Builder cancelMatrixCalculationRequestBuilder(UUID id) throws ApiException {
+  private HttpRequest.Builder cancelMatrixCalculationRequestBuilder(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling cancelMatrixCalculation");
@@ -266,6 +424,8 @@ public class MatricesApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -279,8 +439,20 @@ public class MatricesApi {
    * @return MatrixResponse
    * @throws ApiException if fails to make API call
    */
-  public MatrixResponse getMatrix(UUID id) throws ApiException {
-    ApiResponse<MatrixResponse> localVarResponse = getMatrixWithHttpInfo(id);
+  public MatrixResponse getMatrix(@javax.annotation.Nonnull UUID id) throws ApiException {
+    return getMatrix(id, null);
+  }
+
+  /**
+   * 
+   * Requests the results of a matrix calculation operation.
+   * @param id The ID of a matrix calculation operation. (required)
+   * @param headers Optional headers to include in the request
+   * @return MatrixResponse
+   * @throws ApiException if fails to make API call
+   */
+  public MatrixResponse getMatrix(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    ApiResponse<MatrixResponse> localVarResponse = getMatrixWithHttpInfo(id, headers);
     return localVarResponse.getData();
   }
 
@@ -291,8 +463,20 @@ public class MatricesApi {
    * @return ApiResponse&lt;MatrixResponse&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<MatrixResponse> getMatrixWithHttpInfo(UUID id) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = getMatrixRequestBuilder(id);
+  public ApiResponse<MatrixResponse> getMatrixWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
+    return getMatrixWithHttpInfo(id, null);
+  }
+
+  /**
+   * 
+   * Requests the results of a matrix calculation operation.
+   * @param id The ID of a matrix calculation operation. (required)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;MatrixResponse&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<MatrixResponse> getMatrixWithHttpInfo(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = getMatrixRequestBuilder(id, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -300,16 +484,35 @@ public class MatricesApi {
       if (memberVarResponseInterceptor != null) {
         memberVarResponseInterceptor.accept(localVarResponse);
       }
+      InputStream localVarResponseBody = null;
       try {
         if (localVarResponse.statusCode()/ 100 != 2) {
           throw getApiException("getMatrix", localVarResponse);
         }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<MatrixResponse>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        MatrixResponse responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<MatrixResponse>() {});
+        
+
         return new ApiResponse<MatrixResponse>(
-          localVarResponse.statusCode(),
-          localVarResponse.headers().map(),
-          localVarResponse.body() == null ? null : memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<MatrixResponse>() {}) // closes the InputStream
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
         );
       } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
       }
     } catch (IOException e) {
       throw new ApiException(e);
@@ -320,7 +523,7 @@ public class MatricesApi {
     }
   }
 
-  private HttpRequest.Builder getMatrixRequestBuilder(UUID id) throws ApiException {
+  private HttpRequest.Builder getMatrixRequestBuilder(@javax.annotation.Nonnull UUID id, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling getMatrix");
@@ -339,6 +542,8 @@ public class MatricesApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -353,8 +558,21 @@ public class MatricesApi {
    * @return StatusResponse
    * @throws ApiException if fails to make API call
    */
-  public StatusResponse getStatus(UUID id, Integer maximumPollingPeriod) throws ApiException {
-    ApiResponse<StatusResponse> localVarResponse = getStatusWithHttpInfo(id, maximumPollingPeriod);
+  public StatusResponse getStatus(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable Integer maximumPollingPeriod) throws ApiException {
+    return getStatus(id, maximumPollingPeriod, null);
+  }
+
+  /**
+   * 
+   * Requests the status of a matrix calculation.
+   * @param id The ID of a matrix calculation operation. (required)
+   * @param maximumPollingPeriod If the calculation is still running, this operation will be blocked and will not return before this period [ms] expires. If the calculation is completed, it will return immediately.  The default of 0 ms will cause the operation to return immediately in any case. Use a value &gt; 0 to implement long polling to reduce the number of requests. See the [tutorial](https://developer.myptv.com/en/resources/tutorials/general/how-use-asynchronous-requests-ptv-developer-apis) on asynchronous requests for details.  (optional, default to 0)
+   * @param headers Optional headers to include in the request
+   * @return StatusResponse
+   * @throws ApiException if fails to make API call
+   */
+  public StatusResponse getStatus(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable Integer maximumPollingPeriod, Map<String, String> headers) throws ApiException {
+    ApiResponse<StatusResponse> localVarResponse = getStatusWithHttpInfo(id, maximumPollingPeriod, headers);
     return localVarResponse.getData();
   }
 
@@ -366,8 +584,21 @@ public class MatricesApi {
    * @return ApiResponse&lt;StatusResponse&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<StatusResponse> getStatusWithHttpInfo(UUID id, Integer maximumPollingPeriod) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = getStatusRequestBuilder(id, maximumPollingPeriod);
+  public ApiResponse<StatusResponse> getStatusWithHttpInfo(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable Integer maximumPollingPeriod) throws ApiException {
+    return getStatusWithHttpInfo(id, maximumPollingPeriod, null);
+  }
+
+  /**
+   * 
+   * Requests the status of a matrix calculation.
+   * @param id The ID of a matrix calculation operation. (required)
+   * @param maximumPollingPeriod If the calculation is still running, this operation will be blocked and will not return before this period [ms] expires. If the calculation is completed, it will return immediately.  The default of 0 ms will cause the operation to return immediately in any case. Use a value &gt; 0 to implement long polling to reduce the number of requests. See the [tutorial](https://developer.myptv.com/en/resources/tutorials/general/how-use-asynchronous-requests-ptv-developer-apis) on asynchronous requests for details.  (optional, default to 0)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;StatusResponse&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<StatusResponse> getStatusWithHttpInfo(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable Integer maximumPollingPeriod, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = getStatusRequestBuilder(id, maximumPollingPeriod, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -375,16 +606,35 @@ public class MatricesApi {
       if (memberVarResponseInterceptor != null) {
         memberVarResponseInterceptor.accept(localVarResponse);
       }
+      InputStream localVarResponseBody = null;
       try {
         if (localVarResponse.statusCode()/ 100 != 2) {
           throw getApiException("getStatus", localVarResponse);
         }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<StatusResponse>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        StatusResponse responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<StatusResponse>() {});
+        
+
         return new ApiResponse<StatusResponse>(
-          localVarResponse.statusCode(),
-          localVarResponse.headers().map(),
-          localVarResponse.body() == null ? null : memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<StatusResponse>() {}) // closes the InputStream
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
         );
       } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
       }
     } catch (IOException e) {
       throw new ApiException(e);
@@ -395,7 +645,7 @@ public class MatricesApi {
     }
   }
 
-  private HttpRequest.Builder getStatusRequestBuilder(UUID id, Integer maximumPollingPeriod) throws ApiException {
+  private HttpRequest.Builder getStatusRequestBuilder(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable Integer maximumPollingPeriod, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'id' is set
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling getStatus");
@@ -429,6 +679,8 @@ public class MatricesApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }
@@ -445,8 +697,23 @@ public class MatricesApi {
    * @return MatrixIdentifier
    * @throws ApiException if fails to make API call
    */
-  public MatrixIdentifier startMatrixCalculation(Locations locations, String profile, List<Results> results, Options options) throws ApiException {
-    ApiResponse<MatrixIdentifier> localVarResponse = startMatrixCalculationWithHttpInfo(locations, profile, results, options);
+  public MatrixIdentifier startMatrixCalculation(@javax.annotation.Nonnull Locations locations, @javax.annotation.Nullable String profile, @javax.annotation.Nullable List<Results> results, @javax.annotation.Nullable Options options) throws ApiException {
+    return startMatrixCalculation(locations, profile, results, options, null);
+  }
+
+  /**
+   * 
+   * Creates a matrix asynchronously by calculating distances and travel times between given origins and destinations.
+   * @param locations  (required)
+   * @param profile A profile defines a vehicle by a set of attributes, matching typical transport situations. It must be the name of one of the [predefined profiles](../data-api/concepts/osm-profiles) such as _EUR_OSM_CAR_. (optional, default to EUR_OSM_CAR)
+   * @param results Comma-separated list that defines which results will be returned.  * &#x60;DISTANCES&#x60;     Response includes information about the distances between start and destination locations.  * &#x60;TRAVEL_TIMES&#x60;     Response includes information about the travel times between start and destination locations.  * &#x60;DIRECT_DISTANCE_FLAGS&#x60;     Response includes flags describing if relations have been estimated by direct distance. (optional)
+   * @param options Matrix Routing-relevant options like the average speed for direct distance calculations. Use array notation like &#x60;options[averageSpeed]&#x3D;60&#x60; to set options. (optional)
+   * @param headers Optional headers to include in the request
+   * @return MatrixIdentifier
+   * @throws ApiException if fails to make API call
+   */
+  public MatrixIdentifier startMatrixCalculation(@javax.annotation.Nonnull Locations locations, @javax.annotation.Nullable String profile, @javax.annotation.Nullable List<Results> results, @javax.annotation.Nullable Options options, Map<String, String> headers) throws ApiException {
+    ApiResponse<MatrixIdentifier> localVarResponse = startMatrixCalculationWithHttpInfo(locations, profile, results, options, headers);
     return localVarResponse.getData();
   }
 
@@ -460,8 +727,23 @@ public class MatricesApi {
    * @return ApiResponse&lt;MatrixIdentifier&gt;
    * @throws ApiException if fails to make API call
    */
-  public ApiResponse<MatrixIdentifier> startMatrixCalculationWithHttpInfo(Locations locations, String profile, List<Results> results, Options options) throws ApiException {
-    HttpRequest.Builder localVarRequestBuilder = startMatrixCalculationRequestBuilder(locations, profile, results, options);
+  public ApiResponse<MatrixIdentifier> startMatrixCalculationWithHttpInfo(@javax.annotation.Nonnull Locations locations, @javax.annotation.Nullable String profile, @javax.annotation.Nullable List<Results> results, @javax.annotation.Nullable Options options) throws ApiException {
+    return startMatrixCalculationWithHttpInfo(locations, profile, results, options, null);
+  }
+
+  /**
+   * 
+   * Creates a matrix asynchronously by calculating distances and travel times between given origins and destinations.
+   * @param locations  (required)
+   * @param profile A profile defines a vehicle by a set of attributes, matching typical transport situations. It must be the name of one of the [predefined profiles](../data-api/concepts/osm-profiles) such as _EUR_OSM_CAR_. (optional, default to EUR_OSM_CAR)
+   * @param results Comma-separated list that defines which results will be returned.  * &#x60;DISTANCES&#x60;     Response includes information about the distances between start and destination locations.  * &#x60;TRAVEL_TIMES&#x60;     Response includes information about the travel times between start and destination locations.  * &#x60;DIRECT_DISTANCE_FLAGS&#x60;     Response includes flags describing if relations have been estimated by direct distance. (optional)
+   * @param options Matrix Routing-relevant options like the average speed for direct distance calculations. Use array notation like &#x60;options[averageSpeed]&#x3D;60&#x60; to set options. (optional)
+   * @param headers Optional headers to include in the request
+   * @return ApiResponse&lt;MatrixIdentifier&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public ApiResponse<MatrixIdentifier> startMatrixCalculationWithHttpInfo(@javax.annotation.Nonnull Locations locations, @javax.annotation.Nullable String profile, @javax.annotation.Nullable List<Results> results, @javax.annotation.Nullable Options options, Map<String, String> headers) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = startMatrixCalculationRequestBuilder(locations, profile, results, options, headers);
     try {
       HttpResponse<InputStream> localVarResponse = memberVarHttpClient.send(
           localVarRequestBuilder.build(),
@@ -469,16 +751,35 @@ public class MatricesApi {
       if (memberVarResponseInterceptor != null) {
         memberVarResponseInterceptor.accept(localVarResponse);
       }
+      InputStream localVarResponseBody = null;
       try {
         if (localVarResponse.statusCode()/ 100 != 2) {
           throw getApiException("startMatrixCalculation", localVarResponse);
         }
+        localVarResponseBody = ApiClient.getResponseBody(localVarResponse);
+        if (localVarResponseBody == null) {
+          return new ApiResponse<MatrixIdentifier>(
+              localVarResponse.statusCode(),
+              localVarResponse.headers().map(),
+              null
+          );
+        }
+
+        
+        
+        String responseBody = new String(localVarResponseBody.readAllBytes());
+        MatrixIdentifier responseValue = responseBody.isBlank()? null: memberVarObjectMapper.readValue(responseBody, new TypeReference<MatrixIdentifier>() {});
+        
+
         return new ApiResponse<MatrixIdentifier>(
-          localVarResponse.statusCode(),
-          localVarResponse.headers().map(),
-          localVarResponse.body() == null ? null : memberVarObjectMapper.readValue(localVarResponse.body(), new TypeReference<MatrixIdentifier>() {}) // closes the InputStream
+            localVarResponse.statusCode(),
+            localVarResponse.headers().map(),
+            responseValue
         );
       } finally {
+        if (localVarResponseBody != null) {
+          localVarResponseBody.close();
+        }
       }
     } catch (IOException e) {
       throw new ApiException(e);
@@ -489,7 +790,7 @@ public class MatricesApi {
     }
   }
 
-  private HttpRequest.Builder startMatrixCalculationRequestBuilder(Locations locations, String profile, List<Results> results, Options options) throws ApiException {
+  private HttpRequest.Builder startMatrixCalculationRequestBuilder(@javax.annotation.Nonnull Locations locations, @javax.annotation.Nullable String profile, @javax.annotation.Nullable List<Results> results, @javax.annotation.Nullable Options options, Map<String, String> headers) throws ApiException {
     // verify the required parameter 'locations' is set
     if (locations == null) {
       throw new ApiException(400, "Missing the required parameter 'locations' when calling startMatrixCalculation");
@@ -537,6 +838,8 @@ public class MatricesApi {
     if (memberVarReadTimeout != null) {
       localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
+    // Add custom headers if provided
+    localVarRequestBuilder = HttpRequestBuilderExtensions.withAdditionalHeaders(localVarRequestBuilder, headers);
     if (memberVarInterceptor != null) {
       memberVarInterceptor.accept(localVarRequestBuilder);
     }

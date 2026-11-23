@@ -36,15 +36,16 @@ import com.ptvgroup.developer.client.matrixrouting.osm.ApiClient;
 @JsonPropertyOrder({
   StatusResponse.JSON_PROPERTY_STATUS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-05-06T09:43:01.744404947Z[Etc/UTC]", comments = "Generator version: 7.8.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-23T08:21:21.505582183Z[Etc/UTC]", comments = "Generator version: 7.22.0")
 public class StatusResponse {
   public static final String JSON_PROPERTY_STATUS = "status";
+  @javax.annotation.Nullable
   private CalculationStatus status;
 
   public StatusResponse() { 
   }
 
-  public StatusResponse status(CalculationStatus status) {
+  public StatusResponse status(@javax.annotation.Nullable CalculationStatus status) {
     this.status = status;
     return this;
   }
@@ -54,16 +55,16 @@ public class StatusResponse {
    * @return status
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonProperty(value = JSON_PROPERTY_STATUS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public CalculationStatus getStatus() {
     return status;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonProperty(value = JSON_PROPERTY_STATUS, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStatus(CalculationStatus status) {
+  public void setStatus(@javax.annotation.Nullable CalculationStatus status) {
     this.status = status;
   }
 
@@ -102,10 +103,7 @@ public class StatusResponse {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 
   /**
@@ -142,7 +140,7 @@ public class StatusResponse {
 
     // add `status` to the URL query string
     if (getStatus() != null) {
-      joiner.add(String.format("%sstatus%s=%s", prefix, suffix, URLEncoder.encode(ApiClient.valueToString(getStatus()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      joiner.add(String.format(java.util.Locale.ROOT, "%sstatus%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
     }
 
     return joiner.toString();

@@ -36,18 +36,20 @@ import com.ptvgroup.developer.client.matrixrouting.osm.ApiClient;
   Options.JSON_PROPERTY_DETOUR_FACTOR,
   Options.JSON_PROPERTY_AVERAGE_SPEED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-05-06T09:43:01.744404947Z[Etc/UTC]", comments = "Generator version: 7.8.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-23T08:21:21.505582183Z[Etc/UTC]", comments = "Generator version: 7.22.0")
 public class Options {
   public static final String JSON_PROPERTY_DETOUR_FACTOR = "detourFactor";
+  @javax.annotation.Nullable
   private Double detourFactor;
 
   public static final String JSON_PROPERTY_AVERAGE_SPEED = "averageSpeed";
+  @javax.annotation.Nullable
   private Double averageSpeed;
 
   public Options() { 
   }
 
-  public Options detourFactor(Double detourFactor) {
+  public Options detourFactor(@javax.annotation.Nullable Double detourFactor) {
     this.detourFactor = detourFactor;
     return this;
   }
@@ -58,21 +60,21 @@ public class Options {
    * @return detourFactor
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DETOUR_FACTOR)
+  @JsonProperty(value = JSON_PROPERTY_DETOUR_FACTOR, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Double getDetourFactor() {
     return detourFactor;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_DETOUR_FACTOR)
+  @JsonProperty(value = JSON_PROPERTY_DETOUR_FACTOR, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDetourFactor(Double detourFactor) {
+  public void setDetourFactor(@javax.annotation.Nullable Double detourFactor) {
     this.detourFactor = detourFactor;
   }
 
 
-  public Options averageSpeed(Double averageSpeed) {
+  public Options averageSpeed(@javax.annotation.Nullable Double averageSpeed) {
     this.averageSpeed = averageSpeed;
     return this;
   }
@@ -83,16 +85,16 @@ public class Options {
    * @return averageSpeed
    */
   @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_AVERAGE_SPEED)
+  @JsonProperty(value = JSON_PROPERTY_AVERAGE_SPEED, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public Double getAverageSpeed() {
     return averageSpeed;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_AVERAGE_SPEED)
+  @JsonProperty(value = JSON_PROPERTY_AVERAGE_SPEED, required = false)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAverageSpeed(Double averageSpeed) {
+  public void setAverageSpeed(@javax.annotation.Nullable Double averageSpeed) {
     this.averageSpeed = averageSpeed;
   }
 
@@ -133,10 +135,7 @@ public class Options {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 
   /**
@@ -173,12 +172,12 @@ public class Options {
 
     // add `detourFactor` to the URL query string
     if (getDetourFactor() != null) {
-      joiner.add(String.format("%sdetourFactor%s=%s", prefix, suffix, URLEncoder.encode(ApiClient.valueToString(getDetourFactor()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      joiner.add(String.format(java.util.Locale.ROOT, "%sdetourFactor%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getDetourFactor()))));
     }
 
     // add `averageSpeed` to the URL query string
     if (getAverageSpeed() != null) {
-      joiner.add(String.format("%saverageSpeed%s=%s", prefix, suffix, URLEncoder.encode(ApiClient.valueToString(getAverageSpeed()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      joiner.add(String.format(java.util.Locale.ROOT, "%saverageSpeed%s=%s", prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getAverageSpeed()))));
     }
 
     return joiner.toString();
