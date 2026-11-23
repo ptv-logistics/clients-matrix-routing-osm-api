@@ -83,10 +83,15 @@ export function WarningFromJSONTyped(json: any, ignoreDiscriminator: boolean): W
     };
 }
 
-export function WarningToJSON(value?: Warning | null): any {
+export function WarningToJSON(json: any): Warning {
+    return WarningToJSONTyped(json, false);
+}
+
+export function WarningToJSONTyped(value?: Warning | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'description': value['description'],

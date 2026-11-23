@@ -59,10 +59,15 @@ export function OptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): O
     };
 }
 
-export function OptionsToJSON(value?: Options | null): any {
+export function OptionsToJSON(json: any): Options {
+    return OptionsToJSONTyped(json, false);
+}
+
+export function OptionsToJSONTyped(value?: Options | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'detourFactor': value['detourFactor'],

@@ -119,10 +119,15 @@ export function CausingErrorFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function CausingErrorToJSON(value?: CausingError | null): any {
+export function CausingErrorToJSON(json: any): CausingError {
+    return CausingErrorToJSONTyped(json, false);
+}
+
+export function CausingErrorToJSONTyped(value?: CausingError | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'description': value['description'],

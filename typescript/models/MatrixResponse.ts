@@ -18,6 +18,7 @@ import {
     WarningFromJSON,
     WarningFromJSONTyped,
     WarningToJSON,
+    WarningToJSONTyped,
 } from './Warning';
 
 /**
@@ -87,10 +88,15 @@ export function MatrixResponseFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function MatrixResponseToJSON(value?: MatrixResponse | null): any {
+export function MatrixResponseToJSON(json: any): MatrixResponse {
+    return MatrixResponseToJSONTyped(json, false);
+}
+
+export function MatrixResponseToJSONTyped(value?: MatrixResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'percentageOfDirectDistanceRelations': value['percentageOfDirectDistanceRelations'],

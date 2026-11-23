@@ -18,6 +18,7 @@ import {
     LocationFromJSON,
     LocationFromJSONTyped,
     LocationToJSON,
+    LocationToJSONTyped,
 } from './Location';
 
 /**
@@ -63,10 +64,15 @@ export function LocationsFromJSONTyped(json: any, ignoreDiscriminator: boolean):
     };
 }
 
-export function LocationsToJSON(value?: Locations | null): any {
+export function LocationsToJSON(json: any): Locations {
+    return LocationsToJSONTyped(json, false);
+}
+
+export function LocationsToJSONTyped(value?: Locations | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'origins': ((value['origins'] as Array<any>).map(LocationToJSON)),

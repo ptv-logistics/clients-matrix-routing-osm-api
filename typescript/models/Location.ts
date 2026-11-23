@@ -18,6 +18,7 @@ import {
     RoadAccessFromJSON,
     RoadAccessFromJSONTyped,
     RoadAccessToJSON,
+    RoadAccessToJSONTyped,
 } from './RoadAccess';
 
 /**
@@ -78,10 +79,15 @@ export function LocationFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
     };
 }
 
-export function LocationToJSON(value?: Location | null): any {
+export function LocationToJSON(json: any): Location {
+    return LocationToJSONTyped(json, false);
+}
+
+export function LocationToJSONTyped(value?: Location | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'latitude': value['latitude'],

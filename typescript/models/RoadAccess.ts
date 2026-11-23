@@ -61,10 +61,15 @@ export function RoadAccessFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     };
 }
 
-export function RoadAccessToJSON(value?: RoadAccess | null): any {
+export function RoadAccessToJSON(json: any): RoadAccess {
+    return RoadAccessToJSONTyped(json, false);
+}
+
+export function RoadAccessToJSONTyped(value?: RoadAccess | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'latitude': value['latitude'],

@@ -12,33 +12,42 @@
  * Do not edit the class manually.
  */
 
-
 import * as runtime from '../runtime';
-import type {
-  ErrorResponse,
-  Locations,
-  MatrixIdentifier,
-  MatrixResponse,
-  Options,
-  Results,
-  StatusResponse,
-} from '../models/index';
 import {
+    type ErrorResponse,
     ErrorResponseFromJSON,
     ErrorResponseToJSON,
+} from '../models/ErrorResponse';
+import {
+    type Locations,
     LocationsFromJSON,
     LocationsToJSON,
+} from '../models/Locations';
+import {
+    type MatrixIdentifier,
     MatrixIdentifierFromJSON,
     MatrixIdentifierToJSON,
+} from '../models/MatrixIdentifier';
+import {
+    type MatrixResponse,
     MatrixResponseFromJSON,
     MatrixResponseToJSON,
+} from '../models/MatrixResponse';
+import {
+    type Options,
     OptionsFromJSON,
     OptionsToJSON,
+} from '../models/Options';
+import {
+    type Results,
     ResultsFromJSON,
     ResultsToJSON,
+} from '../models/Results';
+import {
+    type StatusResponse,
     StatusResponseFromJSON,
     StatusResponseToJSON,
-} from '../models/index';
+} from '../models/StatusResponse';
 
 export interface CalculateMatrixRequest {
     locations: Locations;
@@ -73,9 +82,9 @@ export interface StartMatrixCalculationRequest {
 export class MatricesApi extends runtime.BaseAPI {
 
     /**
-     * Creates a matrix by calculating distances and travel times between given origins and destinations.
+     * Creates request options for calculateMatrix without sending the request
      */
-    async calculateMatrixRaw(requestParameters: CalculateMatrixRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MatrixResponse>> {
+    async calculateMatrixRequestOpts(requestParameters: CalculateMatrixRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['locations'] == null) {
             throw new runtime.RequiredError(
                 'locations',
@@ -105,13 +114,24 @@ export class MatricesApi extends runtime.BaseAPI {
             headerParameters["apiKey"] = await this.configuration.apiKey("apiKey"); // apiKeyAuth authentication
         }
 
-        const response = await this.request({
-            path: `/matrices`,
+
+        let urlPath = `/matrices`;
+
+        return {
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: LocationsToJSON(requestParameters['locations']),
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Creates a matrix by calculating distances and travel times between given origins and destinations.
+     */
+    async calculateMatrixRaw(requestParameters: CalculateMatrixRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MatrixResponse>> {
+        const requestOptions = await this.calculateMatrixRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MatrixResponseFromJSON(jsonValue));
     }
@@ -125,9 +145,9 @@ export class MatricesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Cancels a matrix calculation and deletes the calculated results specified by its ID. Results already calculated cannot be requested by its ID, anymore.
+     * Creates request options for cancelMatrixCalculation without sending the request
      */
-    async cancelMatrixCalculationRaw(requestParameters: CancelMatrixCalculationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async cancelMatrixCalculationRequestOpts(requestParameters: CancelMatrixCalculationRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -143,12 +163,24 @@ export class MatricesApi extends runtime.BaseAPI {
             headerParameters["apiKey"] = await this.configuration.apiKey("apiKey"); // apiKeyAuth authentication
         }
 
-        const response = await this.request({
-            path: `/matrices/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/matrices/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Cancels a matrix calculation and deletes the calculated results specified by its ID. Results already calculated cannot be requested by its ID, anymore.
+     */
+    async cancelMatrixCalculationRaw(requestParameters: CancelMatrixCalculationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const requestOptions = await this.cancelMatrixCalculationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -161,9 +193,9 @@ export class MatricesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Requests the results of a matrix calculation operation.
+     * Creates request options for getMatrix without sending the request
      */
-    async getMatrixRaw(requestParameters: GetMatrixRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MatrixResponse>> {
+    async getMatrixRequestOpts(requestParameters: GetMatrixRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -179,12 +211,24 @@ export class MatricesApi extends runtime.BaseAPI {
             headerParameters["apiKey"] = await this.configuration.apiKey("apiKey"); // apiKeyAuth authentication
         }
 
-        const response = await this.request({
-            path: `/matrices/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/matrices/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Requests the results of a matrix calculation operation.
+     */
+    async getMatrixRaw(requestParameters: GetMatrixRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MatrixResponse>> {
+        const requestOptions = await this.getMatrixRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MatrixResponseFromJSON(jsonValue));
     }
@@ -198,9 +242,9 @@ export class MatricesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Requests the status of a matrix calculation.
+     * Creates request options for getStatus without sending the request
      */
-    async getStatusRaw(requestParameters: GetStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StatusResponse>> {
+    async getStatusRequestOpts(requestParameters: GetStatusRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -220,12 +264,24 @@ export class MatricesApi extends runtime.BaseAPI {
             headerParameters["apiKey"] = await this.configuration.apiKey("apiKey"); // apiKeyAuth authentication
         }
 
-        const response = await this.request({
-            path: `/matrices/status/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+
+        let urlPath = `/matrices/status/{id}`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Requests the status of a matrix calculation.
+     */
+    async getStatusRaw(requestParameters: GetStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StatusResponse>> {
+        const requestOptions = await this.getStatusRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => StatusResponseFromJSON(jsonValue));
     }
@@ -239,9 +295,9 @@ export class MatricesApi extends runtime.BaseAPI {
     }
 
     /**
-     * Creates a matrix asynchronously by calculating distances and travel times between given origins and destinations.
+     * Creates request options for startMatrixCalculation without sending the request
      */
-    async startMatrixCalculationRaw(requestParameters: StartMatrixCalculationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MatrixIdentifier>> {
+    async startMatrixCalculationRequestOpts(requestParameters: StartMatrixCalculationRequest): Promise<runtime.RequestOpts> {
         if (requestParameters['locations'] == null) {
             throw new runtime.RequiredError(
                 'locations',
@@ -271,13 +327,24 @@ export class MatricesApi extends runtime.BaseAPI {
             headerParameters["apiKey"] = await this.configuration.apiKey("apiKey"); // apiKeyAuth authentication
         }
 
-        const response = await this.request({
-            path: `/matrices/async`,
+
+        let urlPath = `/matrices/async`;
+
+        return {
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: LocationsToJSON(requestParameters['locations']),
-        }, initOverrides);
+        };
+    }
+
+    /**
+     * Creates a matrix asynchronously by calculating distances and travel times between given origins and destinations.
+     */
+    async startMatrixCalculationRaw(requestParameters: StartMatrixCalculationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MatrixIdentifier>> {
+        const requestOptions = await this.startMatrixCalculationRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MatrixIdentifierFromJSON(jsonValue));
     }

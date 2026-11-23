@@ -18,6 +18,7 @@ import {
     CalculationStatusFromJSON,
     CalculationStatusFromJSONTyped,
     CalculationStatusToJSON,
+    CalculationStatusToJSONTyped,
 } from './CalculationStatus';
 
 /**
@@ -57,10 +58,15 @@ export function StatusResponseFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function StatusResponseToJSON(value?: StatusResponse | null): any {
+export function StatusResponseToJSON(json: any): StatusResponse {
+    return StatusResponseToJSONTyped(json, false);
+}
+
+export function StatusResponseToJSONTyped(value?: StatusResponse | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'status': CalculationStatusToJSON(value['status']),

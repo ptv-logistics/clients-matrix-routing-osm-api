@@ -49,10 +49,15 @@ export function MatrixIdentifierFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function MatrixIdentifierToJSON(value?: MatrixIdentifier | null): any {
+export function MatrixIdentifierToJSON(json: any): MatrixIdentifier {
+    return MatrixIdentifierToJSONTyped(json, false);
+}
+
+export function MatrixIdentifierToJSONTyped(value?: MatrixIdentifier | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+
     return {
         
         'id': value['id'],
