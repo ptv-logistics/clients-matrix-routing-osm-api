@@ -36,7 +36,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Model
         /// </summary>
         /// <param name="detourFactor">Defines the average detour an actual route on the road requires, compared to the direct distance. This factor is used to estimate by direct distance a relation that could not be calculated using the road network. If not specified, the factor is selected based on the profile..</param>
         /// <param name="averageSpeed">Defines the average speed of the vehicle. This parameter is used to calculate the travel time for a relation that could not be calculated using the road network. If not specified, the average speed is selected based on the profile..</param>
-        public Options(double? detourFactor = default(double?), double? averageSpeed = default(double?))
+        public Options(double? detourFactor = default, double? averageSpeed = default)
         {
             this.DetourFactor = detourFactor;
             this.AverageSpeed = averageSpeed;

@@ -43,7 +43,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Model
         /// <param name="longitude">The longitude value in degrees (WGS84/EPSG:4326) from west to east. (required).</param>
         /// <param name="roadAccess">roadAccess.</param>
         /// <param name="includeLastMeters">Include the air-line connection between given and matched coordinates in the relation distance and travel time. Will be ignored when **roadAccess** is specified. We will refer to this type of location as an _off-road location_. (default to false).</param>
-        public Location(double? latitude = default(double?), double? longitude = default(double?), RoadAccess roadAccess = default(RoadAccess), bool? includeLastMeters = false)
+        public Location(double? latitude = default, double? longitude = default, RoadAccess roadAccess = default, bool? includeLastMeters = false)
         {
             // to ensure "latitude" is required (not null)
             if (latitude == null)
@@ -66,7 +66,9 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Model
         /// The latitude value in degrees (WGS84/EPSG:4326) from south to north.
         /// </summary>
         /// <value>The latitude value in degrees (WGS84/EPSG:4326) from south to north.</value>
-        /// <example>49.480301</example>
+        /*
+        <example>49.480301</example>
+        */
         [DataMember(Name = "latitude", IsRequired = true, EmitDefaultValue = true)]
         public double? Latitude { get; set; }
 
@@ -74,7 +76,9 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Model
         /// The longitude value in degrees (WGS84/EPSG:4326) from west to east.
         /// </summary>
         /// <value>The longitude value in degrees (WGS84/EPSG:4326) from west to east.</value>
-        /// <example>6.110667</example>
+        /*
+        <example>6.110667</example>
+        */
         [DataMember(Name = "longitude", IsRequired = true, EmitDefaultValue = true)]
         public double? Longitude { get; set; }
 

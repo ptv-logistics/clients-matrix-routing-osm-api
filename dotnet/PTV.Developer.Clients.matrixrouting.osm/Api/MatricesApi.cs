@@ -39,7 +39,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="options">Matrix Routing-relevant options like the average speed for direct distance calculations. Use array notation like &#x60;options[averageSpeed]&#x3D;60&#x60; to set options. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>MatrixResponse</returns>
-        MatrixResponse CalculateMatrix(Locations locations, string? profile = default(string?), List<Results>? results = default(List<Results>?), Options? options = default(Options?), int operationIndex = 0);
+        MatrixResponse CalculateMatrix(Locations locations, string? profile = default, List<Results>? results = default, Options? options = default, int operationIndex = 0);
 
         /// <summary>
         /// 
@@ -54,7 +54,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="options">Matrix Routing-relevant options like the average speed for direct distance calculations. Use array notation like &#x60;options[averageSpeed]&#x3D;60&#x60; to set options. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of MatrixResponse</returns>
-        ApiResponse<MatrixResponse> CalculateMatrixWithHttpInfo(Locations locations, string? profile = default(string?), List<Results>? results = default(List<Results>?), Options? options = default(Options?), int operationIndex = 0);
+        ApiResponse<MatrixResponse> CalculateMatrixWithHttpInfo(Locations locations, string? profile = default, List<Results>? results = default, Options? options = default, int operationIndex = 0);
         /// <summary>
         /// 
         /// </summary>
@@ -112,7 +112,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="maximumPollingPeriod">If the calculation is still running, this operation will be blocked and will not return before this period [ms] expires. If the calculation is completed, it will return immediately.  The default of 0 ms will cause the operation to return immediately in any case. Use a value &gt; 0 to implement long polling to reduce the number of requests. See the [tutorial](https://developer.myptv.com/en/resources/tutorials/general/how-use-asynchronous-requests-ptv-developer-apis) on asynchronous requests for details.  (optional, default to 0)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>StatusResponse</returns>
-        StatusResponse GetStatus(Guid? id, int? maximumPollingPeriod = default(int?), int operationIndex = 0);
+        StatusResponse GetStatus(Guid? id, int? maximumPollingPeriod = default, int operationIndex = 0);
 
         /// <summary>
         /// 
@@ -125,7 +125,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="maximumPollingPeriod">If the calculation is still running, this operation will be blocked and will not return before this period [ms] expires. If the calculation is completed, it will return immediately.  The default of 0 ms will cause the operation to return immediately in any case. Use a value &gt; 0 to implement long polling to reduce the number of requests. See the [tutorial](https://developer.myptv.com/en/resources/tutorials/general/how-use-asynchronous-requests-ptv-developer-apis) on asynchronous requests for details.  (optional, default to 0)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of StatusResponse</returns>
-        ApiResponse<StatusResponse> GetStatusWithHttpInfo(Guid? id, int? maximumPollingPeriod = default(int?), int operationIndex = 0);
+        ApiResponse<StatusResponse> GetStatusWithHttpInfo(Guid? id, int? maximumPollingPeriod = default, int operationIndex = 0);
         /// <summary>
         /// 
         /// </summary>
@@ -139,7 +139,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="options">Matrix Routing-relevant options like the average speed for direct distance calculations. Use array notation like &#x60;options[averageSpeed]&#x3D;60&#x60; to set options. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>MatrixIdentifier</returns>
-        MatrixIdentifier StartMatrixCalculation(Locations locations, string? profile = default(string?), List<Results>? results = default(List<Results>?), Options? options = default(Options?), int operationIndex = 0);
+        MatrixIdentifier StartMatrixCalculation(Locations locations, string? profile = default, List<Results>? results = default, Options? options = default, int operationIndex = 0);
 
         /// <summary>
         /// 
@@ -154,7 +154,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="options">Matrix Routing-relevant options like the average speed for direct distance calculations. Use array notation like &#x60;options[averageSpeed]&#x3D;60&#x60; to set options. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of MatrixIdentifier</returns>
-        ApiResponse<MatrixIdentifier> StartMatrixCalculationWithHttpInfo(Locations locations, string? profile = default(string?), List<Results>? results = default(List<Results>?), Options? options = default(Options?), int operationIndex = 0);
+        ApiResponse<MatrixIdentifier> StartMatrixCalculationWithHttpInfo(Locations locations, string? profile = default, List<Results>? results = default, Options? options = default, int operationIndex = 0);
         #endregion Synchronous Operations
     }
 
@@ -178,7 +178,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of MatrixResponse</returns>
-        System.Threading.Tasks.Task<MatrixResponse> CalculateMatrixAsync(Locations locations, string? profile = default(string?), List<Results>? results = default(List<Results>?), Options? options = default(Options?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<MatrixResponse> CalculateMatrixAsync(Locations locations, string? profile = default, List<Results>? results = default, Options? options = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 
@@ -194,7 +194,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (MatrixResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<MatrixResponse>> CalculateMatrixWithHttpInfoAsync(Locations locations, string? profile = default(string?), List<Results>? results = default(List<Results>?), Options? options = default(Options?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<MatrixResponse>> CalculateMatrixWithHttpInfoAsync(Locations locations, string? profile = default, List<Results>? results = default, Options? options = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// 
         /// </summary>
@@ -206,7 +206,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task CancelMatrixCalculationAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task CancelMatrixCalculationAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 
@@ -219,7 +219,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> CancelMatrixCalculationWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<Object>> CancelMatrixCalculationWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// 
         /// </summary>
@@ -231,7 +231,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of MatrixResponse</returns>
-        System.Threading.Tasks.Task<MatrixResponse> GetMatrixAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<MatrixResponse> GetMatrixAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 
@@ -244,7 +244,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (MatrixResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<MatrixResponse>> GetMatrixWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<MatrixResponse>> GetMatrixWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// 
         /// </summary>
@@ -257,7 +257,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of StatusResponse</returns>
-        System.Threading.Tasks.Task<StatusResponse> GetStatusAsync(Guid? id, int? maximumPollingPeriod = default(int?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<StatusResponse> GetStatusAsync(Guid? id, int? maximumPollingPeriod = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 
@@ -271,7 +271,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (StatusResponse)</returns>
-        System.Threading.Tasks.Task<ApiResponse<StatusResponse>> GetStatusWithHttpInfoAsync(Guid? id, int? maximumPollingPeriod = default(int?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<StatusResponse>> GetStatusWithHttpInfoAsync(Guid? id, int? maximumPollingPeriod = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// 
         /// </summary>
@@ -286,7 +286,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of MatrixIdentifier</returns>
-        System.Threading.Tasks.Task<MatrixIdentifier> StartMatrixCalculationAsync(Locations locations, string? profile = default(string?), List<Results>? results = default(List<Results>?), Options? options = default(Options?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<MatrixIdentifier> StartMatrixCalculationAsync(Locations locations, string? profile = default, List<Results>? results = default, Options? options = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 
@@ -302,7 +302,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (MatrixIdentifier)</returns>
-        System.Threading.Tasks.Task<ApiResponse<MatrixIdentifier>> StartMatrixCalculationWithHttpInfoAsync(Locations locations, string? profile = default(string?), List<Results>? results = default(List<Results>?), Options? options = default(Options?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<MatrixIdentifier>> StartMatrixCalculationWithHttpInfoAsync(Locations locations, string? profile = default, List<Results>? results = default, Options? options = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default);
         #endregion Asynchronous Operations
     }
 
@@ -433,7 +433,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="options">Matrix Routing-relevant options like the average speed for direct distance calculations. Use array notation like &#x60;options[averageSpeed]&#x3D;60&#x60; to set options. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>MatrixResponse</returns>
-        public MatrixResponse CalculateMatrix(Locations locations, string? profile = default(string?), List<Results>? results = default(List<Results>?), Options? options = default(Options?), int operationIndex = 0)
+        public MatrixResponse CalculateMatrix(Locations locations, string? profile = default, List<Results>? results = default, Options? options = default, int operationIndex = 0)
         {
             PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<MatrixResponse> localVarResponse = CalculateMatrixWithHttpInfo(locations, profile, results, options);
             return localVarResponse.Data;
@@ -449,7 +449,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="options">Matrix Routing-relevant options like the average speed for direct distance calculations. Use array notation like &#x60;options[averageSpeed]&#x3D;60&#x60; to set options. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of MatrixResponse</returns>
-        public PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<MatrixResponse> CalculateMatrixWithHttpInfo(Locations locations, string? profile = default(string?), List<Results>? results = default(List<Results>?), Options? options = default(Options?), int operationIndex = 0)
+        public PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<MatrixResponse> CalculateMatrixWithHttpInfo(Locations locations, string? profile = default, List<Results>? results = default, Options? options = default, int operationIndex = 0)
         {
             // verify the required parameter 'locations' is set
             if (locations == null)
@@ -469,6 +469,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
             };
 
             var localVarContentType = PTV.Developer.Clients.matrixrouting.osm.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            var localVarMultipartFormData = localVarContentType == "multipart/form-data";
             if (localVarContentType != null)
             {
                 localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
@@ -535,7 +536,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of MatrixResponse</returns>
-        public async System.Threading.Tasks.Task<MatrixResponse> CalculateMatrixAsync(Locations locations, string? profile = default(string?), List<Results>? results = default(List<Results>?), Options? options = default(Options?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<MatrixResponse> CalculateMatrixAsync(Locations locations, string? profile = default, List<Results>? results = default, Options? options = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<MatrixResponse> localVarResponse = await CalculateMatrixWithHttpInfoAsync(locations, profile, results, options, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
@@ -552,7 +553,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (MatrixResponse)</returns>
-        public async System.Threading.Tasks.Task<PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<MatrixResponse>> CalculateMatrixWithHttpInfoAsync(Locations locations, string? profile = default(string?), List<Results>? results = default(List<Results>?), Options? options = default(Options?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<MatrixResponse>> CalculateMatrixWithHttpInfoAsync(Locations locations, string? profile = default, List<Results>? results = default, Options? options = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             // verify the required parameter 'locations' is set
             if (locations == null)
@@ -667,6 +668,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
             };
 
             var localVarContentType = PTV.Developer.Clients.matrixrouting.osm.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            var localVarMultipartFormData = localVarContentType == "multipart/form-data";
             if (localVarContentType != null)
             {
                 localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
@@ -711,7 +713,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task CancelMatrixCalculationAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task CancelMatrixCalculationAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             await CancelMatrixCalculationWithHttpInfoAsync(id, operationIndex, cancellationToken).ConfigureAwait(false);
         }
@@ -724,7 +726,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<Object>> CancelMatrixCalculationWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<Object>> CancelMatrixCalculationWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -820,6 +822,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
             };
 
             var localVarContentType = PTV.Developer.Clients.matrixrouting.osm.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            var localVarMultipartFormData = localVarContentType == "multipart/form-data";
             if (localVarContentType != null)
             {
                 localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
@@ -864,7 +867,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of MatrixResponse</returns>
-        public async System.Threading.Tasks.Task<MatrixResponse> GetMatrixAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<MatrixResponse> GetMatrixAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<MatrixResponse> localVarResponse = await GetMatrixWithHttpInfoAsync(id, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
@@ -878,7 +881,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (MatrixResponse)</returns>
-        public async System.Threading.Tasks.Task<PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<MatrixResponse>> GetMatrixWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<MatrixResponse>> GetMatrixWithHttpInfoAsync(Guid? id, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -943,7 +946,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="maximumPollingPeriod">If the calculation is still running, this operation will be blocked and will not return before this period [ms] expires. If the calculation is completed, it will return immediately.  The default of 0 ms will cause the operation to return immediately in any case. Use a value &gt; 0 to implement long polling to reduce the number of requests. See the [tutorial](https://developer.myptv.com/en/resources/tutorials/general/how-use-asynchronous-requests-ptv-developer-apis) on asynchronous requests for details.  (optional, default to 0)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>StatusResponse</returns>
-        public StatusResponse GetStatus(Guid? id, int? maximumPollingPeriod = default(int?), int operationIndex = 0)
+        public StatusResponse GetStatus(Guid? id, int? maximumPollingPeriod = default, int operationIndex = 0)
         {
             PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<StatusResponse> localVarResponse = GetStatusWithHttpInfo(id, maximumPollingPeriod);
             return localVarResponse.Data;
@@ -957,7 +960,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="maximumPollingPeriod">If the calculation is still running, this operation will be blocked and will not return before this period [ms] expires. If the calculation is completed, it will return immediately.  The default of 0 ms will cause the operation to return immediately in any case. Use a value &gt; 0 to implement long polling to reduce the number of requests. See the [tutorial](https://developer.myptv.com/en/resources/tutorials/general/how-use-asynchronous-requests-ptv-developer-apis) on asynchronous requests for details.  (optional, default to 0)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of StatusResponse</returns>
-        public PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<StatusResponse> GetStatusWithHttpInfo(Guid? id, int? maximumPollingPeriod = default(int?), int operationIndex = 0)
+        public PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<StatusResponse> GetStatusWithHttpInfo(Guid? id, int? maximumPollingPeriod = default, int operationIndex = 0)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -976,6 +979,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
             };
 
             var localVarContentType = PTV.Developer.Clients.matrixrouting.osm.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            var localVarMultipartFormData = localVarContentType == "multipart/form-data";
             if (localVarContentType != null)
             {
                 localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
@@ -1025,7 +1029,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of StatusResponse</returns>
-        public async System.Threading.Tasks.Task<StatusResponse> GetStatusAsync(Guid? id, int? maximumPollingPeriod = default(int?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<StatusResponse> GetStatusAsync(Guid? id, int? maximumPollingPeriod = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<StatusResponse> localVarResponse = await GetStatusWithHttpInfoAsync(id, maximumPollingPeriod, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
@@ -1040,7 +1044,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (StatusResponse)</returns>
-        public async System.Threading.Tasks.Task<PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<StatusResponse>> GetStatusWithHttpInfoAsync(Guid? id, int? maximumPollingPeriod = default(int?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<StatusResponse>> GetStatusWithHttpInfoAsync(Guid? id, int? maximumPollingPeriod = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -1111,7 +1115,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="options">Matrix Routing-relevant options like the average speed for direct distance calculations. Use array notation like &#x60;options[averageSpeed]&#x3D;60&#x60; to set options. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>MatrixIdentifier</returns>
-        public MatrixIdentifier StartMatrixCalculation(Locations locations, string? profile = default(string?), List<Results>? results = default(List<Results>?), Options? options = default(Options?), int operationIndex = 0)
+        public MatrixIdentifier StartMatrixCalculation(Locations locations, string? profile = default, List<Results>? results = default, Options? options = default, int operationIndex = 0)
         {
             PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<MatrixIdentifier> localVarResponse = StartMatrixCalculationWithHttpInfo(locations, profile, results, options);
             return localVarResponse.Data;
@@ -1127,7 +1131,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="options">Matrix Routing-relevant options like the average speed for direct distance calculations. Use array notation like &#x60;options[averageSpeed]&#x3D;60&#x60; to set options. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of MatrixIdentifier</returns>
-        public PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<MatrixIdentifier> StartMatrixCalculationWithHttpInfo(Locations locations, string? profile = default(string?), List<Results>? results = default(List<Results>?), Options? options = default(Options?), int operationIndex = 0)
+        public PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<MatrixIdentifier> StartMatrixCalculationWithHttpInfo(Locations locations, string? profile = default, List<Results>? results = default, Options? options = default, int operationIndex = 0)
         {
             // verify the required parameter 'locations' is set
             if (locations == null)
@@ -1147,6 +1151,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
             };
 
             var localVarContentType = PTV.Developer.Clients.matrixrouting.osm.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            var localVarMultipartFormData = localVarContentType == "multipart/form-data";
             if (localVarContentType != null)
             {
                 localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
@@ -1213,7 +1218,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of MatrixIdentifier</returns>
-        public async System.Threading.Tasks.Task<MatrixIdentifier> StartMatrixCalculationAsync(Locations locations, string? profile = default(string?), List<Results>? results = default(List<Results>?), Options? options = default(Options?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<MatrixIdentifier> StartMatrixCalculationAsync(Locations locations, string? profile = default, List<Results>? results = default, Options? options = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<MatrixIdentifier> localVarResponse = await StartMatrixCalculationWithHttpInfoAsync(locations, profile, results, options, operationIndex, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
@@ -1230,7 +1235,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Api
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (MatrixIdentifier)</returns>
-        public async System.Threading.Tasks.Task<PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<MatrixIdentifier>> StartMatrixCalculationWithHttpInfoAsync(Locations locations, string? profile = default(string?), List<Results>? results = default(List<Results>?), Options? options = default(Options?), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<PTV.Developer.Clients.matrixrouting.osm.Client.ApiResponse<MatrixIdentifier>> StartMatrixCalculationWithHttpInfoAsync(Locations locations, string? profile = default, List<Results>? results = default, Options? options = default, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default)
         {
             // verify the required parameter 'locations' is set
             if (locations == null)

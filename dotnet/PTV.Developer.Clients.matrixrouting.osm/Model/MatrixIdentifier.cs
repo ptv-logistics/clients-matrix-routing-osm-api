@@ -40,7 +40,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Model
         /// Initializes a new instance of the <see cref="MatrixIdentifier" /> class.
         /// </summary>
         /// <param name="id">The ID of the matrix. (required).</param>
-        public MatrixIdentifier(Guid? id = default(Guid?))
+        public MatrixIdentifier(Guid? id = default)
         {
             // to ensure "id" is required (not null)
             if (id == null)

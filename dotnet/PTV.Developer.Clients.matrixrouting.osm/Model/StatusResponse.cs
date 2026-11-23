@@ -41,7 +41,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Model
         /// Initializes a new instance of the <see cref="StatusResponse" /> class.
         /// </summary>
         /// <param name="status">status.</param>
-        public StatusResponse(CalculationStatus? status = default(CalculationStatus?))
+        public StatusResponse(CalculationStatus? status = default)
         {
             this.Status = status;
         }

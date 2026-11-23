@@ -41,7 +41,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Model
         /// </summary>
         /// <param name="origins">The list of origins. (required).</param>
         /// <param name="destinations">The list of destinations. If this list is empty, the destinations are equal to the origins..</param>
-        public Locations(List<Location> origins = default(List<Location>), List<Location> destinations = default(List<Location>))
+        public Locations(List<Location> origins = default, List<Location> destinations = default)
         {
             // to ensure "origins" is required (not null)
             if (origins == null)

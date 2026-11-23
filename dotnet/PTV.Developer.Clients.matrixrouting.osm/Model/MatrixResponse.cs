@@ -39,7 +39,7 @@ namespace PTV.Developer.Clients.matrixrouting.osm.Model
         /// <param name="travelTimes">The travel times of the requested matrix elements [s]. To access to the travel time of the relation between the origin i and the destination j, read the k-th element defined by &#x60;k &#x3D; i * N + j&#x60;, with N being the number of destinations. Please note that the travel time for an A-A relation is always set to zero..</param>
         /// <param name="directDistanceFlags">The direct distance flags of the requested matrix elements. To access to the direct distance flag of the relation between the origin i and the destination j, read the k-th element defined by &#x60;k &#x3D; i * N + j&#x60;,  with N being the number of destinations. Please note that the direct distance flag for an A-A relation is always set to false..</param>
         /// <param name="warnings">A list of warnings concerning the validity of the result..</param>
-        public MatrixResponse(double? percentageOfDirectDistanceRelations = default(double?), List<int?> distances = default(List<int?>), List<int?> travelTimes = default(List<int?>), List<bool?> directDistanceFlags = default(List<bool?>), List<Warning> warnings = default(List<Warning>))
+        public MatrixResponse(double? percentageOfDirectDistanceRelations = default, List<int?> distances = default, List<int?> travelTimes = default, List<bool?> directDistanceFlags = default, List<Warning> warnings = default)
         {
             this.PercentageOfDirectDistanceRelations = percentageOfDirectDistanceRelations;
             this.Distances = distances;
